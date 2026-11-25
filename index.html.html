@@ -1,0 +1,1014 @@
+<!-- Google Fonts: Poppins (Principal), Istok Web (Secundaria) y Fraunces/Playfair Display (Estilo Amarego) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Istok+Web:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuración de Tailwind con la paleta oficial de Kamila -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kamila: {
+              primary: '#990049',
+              dark: '#530028',
+              base: '#3a1225',
+              blush: '#f7b2d9',
+              gold: '#f9e79f',
+              black: '#000000',
+              white: '#ffffff'
+            }
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            istok: ['Istok Web', 'sans-serif'],
+            display: ['"Amarego"', '"Fraunces"', '"Playfair Display"', 'serif']
+          },
+          backgroundImage: {
+            'kamila-accent': 'linear-gradient(135deg, #990049 0%, #530028 100%)'
+          },
+          boxShadow: {
+            'neon': '0 0 24px rgba(153, 0, 73, 0.4)',
+            'neon-strong': '0 0 36px rgba(153, 0, 73, 0.6)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: 'Istok Web', sans-serif;
+      background-color: #3a1225;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .font-amarego {
+      font-family: 'Amarego', 'Fraunces', 'Playfair Display', serif;
+      font-variation-settings: "SOFT" 100, "WONK" 1;
+    }
+
+    /* Convierte el fondo blanco de los PNG negros en transparente sobre fondo oscuro */
+    .logo-transparent-white {
+      filter: invert(1) contrast(1.15);
+      mix-blend-mode: screen;
+    }
+
+    /* Fondo vinotinto profundo con degradado suave */
+    .burgundy-starfield {
+      background:
+        radial-gradient(circle at 14% 16%, rgba(153, 0, 73, 0.34) 0%, transparent 44%),
+        radial-gradient(circle at 86% 24%, rgba(153, 0, 73, 0.26) 0%, transparent 46%),
+        radial-gradient(circle at 50% 80%, rgba(83, 0, 40, 0.58) 0%, transparent 56%),
+        linear-gradient(180deg, #240916 0%, #3a1225 32%, #46122a 68%, #220714 100%);
+    }
+
+    /* Estrellitas de 4 puntas sutiles y difuminadas */
+    .blurred-star {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      filter: blur(2.4px);
+      opacity: 0.22;
+      color: #f7b2d9;
+    }
+
+    .blurred-star.soft {
+      filter: blur(4.2px);
+      opacity: 0.14;
+    }
+
+    /* Cinta editorial continua */
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Tarjetas translúcidas equilibradas */
+    .glass-dark {
+      background: rgba(34, 8, 20, 0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(247, 178, 217, 0.55);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Botón de filtro activo */
+    .filter-btn.active {
+      background: #990049;
+      border-color: #f7b2d9;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(153, 0, 73, 0.55);
+    }
+
+    .portfolio-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .group:hover .portfolio-img {
+      transform: scale(1.04);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a060f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #530028;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #990049;
+    }
+  </style>
+</head>
+
+<body class="burgundy-starfield text-white selection:bg-kamila-primary selection:text-white">
+
+  <!-- Estrellitas difuminadas decorativas en el fondo vinotinto -->
+  <div aria-hidden="true" class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <svg class="blurred-star w-12 h-12 top-24 left-[7%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+    <svg class="blurred-star soft w-20 h-20 top-44 right-[9%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+    <svg class="blurred-star w-8 h-8 top-[40%] left-[4%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+    <svg class="blurred-star soft w-16 h-16 top-[56%] right-[6%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+    <svg class="blurred-star w-10 h-10 top-[74%] left-[13%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+    <svg class="blurred-star soft w-14 h-14 bottom-24 right-[16%]" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/>
+    </svg>
+  </div>
+
+  <!-- =========================================================
+       1. NAVBAR FIJO
+  ========================================================== -->
+  <header class="sticky top-0 z-40 glass-dark border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo Oficial Kamila Creación Digital (sin recuadro negro, tipografía Amarego y K mayúscula con estrella) -->
+      <a href="#inicio" class="flex items-center gap-3 group focus:outline-none" aria-label="Kamila Creación Digital — Inicio">
+        <!-- Isotipo K con swashes y estrella (PNG original con fondo transparente vía screen + SVG vectorial de respaldo) -->
+        <div class="relative w-12 h-12 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+          <img
+            src="Kamila (1)_2.png"
+            alt="Monograma K Kamila"
+            class="w-12 h-12 object-contain logo-transparent-white"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='Kamila (1).png';}else{this.style.display='none';this.nextElementSibling.classList.remove('hidden');}"
+          />
+          <svg class="hidden w-11 h-11 text-white" viewBox="0 0 120 110" fill="currentColor" aria-hidden="true">
+            <!-- Estrella de 4 puntas -->
+            <path d="M58 6 L63 21 L78 26 L63 31 L58 46 L53 31 L38 26 L53 21 Z"/>
+            <!-- K mayúscula estilo Amarego con gotas y curvatura orgánica -->
+            <path d="M35 23 C18 23 11 36 13 48 C15 58 26 61 32 54 C37 48 34 39 27 40 C22 41 20 35 24 30 C29 25 38 28 40 42 L40 80 C40 85 37 87 34 88 L56 88 C53 87 51 85 51 80 L51 54 C57 47 64 41 69 44 C74 47 78 51 84 49 C91 47 93 38 87 33 C80 28 69 32 60 42 L51 51 L51 39 C51 28 44 23 35 23 Z"/>
+            <path d="M51 52 C61 52 67 60 72 74 C77 88 84 96 96 96 C106 96 112 90 110 83 C108 77 100 77 96 83 C92 89 88 92 84 88 C80 83 77 71 71 61 C65 52 57 49 51 50 Z"/>
+          </svg>
+        </div>
+
+        <div class="leading-none">
+          <span class="font-amarego text-[26px] sm:text-[29px] font-black tracking-tight text-white block">Kamila</span>
+          <span class="font-heading text-[9.5px] sm:text-[10px] tracking-[0.24em] uppercase text-kamila-blush font-semibold mt-1 block">Creación Digital</span>
+        </div>
+      </a>
+
+      <!-- Navegación Desktop -->
+      <nav class="hidden md:flex items-center gap-7 font-heading text-xs font-semibold tracking-[0.16em] uppercase text-white/85">
+        <a href="#inicio" class="hover:text-kamila-blush transition">Inicio</a>
+        <a href="#sobre-mi" class="hover:text-kamila-blush transition">Sobre Mí</a>
+        <a href="#portafolio" class="hover:text-kamila-blush transition">Portafolio</a>
+        <a href="#servicios" class="hover:text-kamila-blush transition">Servicios</a>
+        <a href="#contacto" class="hover:text-kamila-blush transition">Contacto</a>
+      </nav>
+
+      <!-- Botones derecha (WhatsApp + Menú móvil) -->
+      <div class="flex items-center gap-3">
+        <a
+          href="https://wa.me/573188671297?text=Hola%20Lau%2C%20vi%20tu%20portafolio%20Kamila%20Creaci%C3%B3n%20Digital%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-kamila-primary hover:bg-pink-700 text-white font-heading text-xs font-semibold tracking-wider uppercase px-4 py-2.5 rounded-full transition shadow-neon"
+        >
+          <span>WhatsApp</span>
+        </a>
+
+        <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-xl bg-kamila-dark/80 border border-white/15 text-white hover:bg-kamila-primary transition" aria-label="Abrir menú" aria-expanded="false">
+          <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="hidden md:hidden glass-dark border-t border-white/10 px-4 pt-3 pb-5 space-y-1.5">
+      <a href="#inicio" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-heading text-xs font-semibold uppercase tracking-wider text-white hover:bg-kamila-primary/30">Inicio</a>
+      <a href="#sobre-mi" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-heading text-xs font-semibold uppercase tracking-wider text-white hover:bg-kamila-primary/30">Sobre Mí</a>
+      <a href="#portafolio" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-heading text-xs font-semibold uppercase tracking-wider text-white hover:bg-kamila-primary/30">Portafolio</a>
+      <a href="#servicios" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-heading text-xs font-semibold uppercase tracking-wider text-white hover:bg-kamila-primary/30">Servicios</a>
+      <a href="#contacto" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-heading text-xs font-semibold uppercase tracking-wider text-white hover:bg-kamila-primary/30">Contacto</a>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+    <!-- =========================================================
+         2. HERO / INICIO
+    ========================================================== -->
+    <section id="inicio" class="pt-12 pb-16 lg:pt-20 lg:pb-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-kamila-dark/90 border border-kamila-primary/50 font-heading text-xs tracking-[0.18em] uppercase text-kamila-blush font-semibold">
+            <span class="text-kamila-gold">✦</span> Publicidad · Marketing Digital · Fotografía
+          </div>
+
+          <h1 class="font-heading text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.08] uppercase text-white">
+            CREO IDEAS QUE <span class="text-kamila-blush">CONECTAN MARCAS</span> CON PERSONAS
+          </h1>
+
+          <p class="font-istok text-base sm:text-lg text-white/80 max-w-2xl leading-relaxed">
+            Soy <strong class="text-white">Laura Camila García Ramírez</strong> (Lau). Diseño conceptos visuales, fotografía publicitaria y contenido digital con sensibilidad estética para que cada marca comunique su esencia con autenticidad.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#portafolio" class="bg-kamila-primary hover:bg-pink-700 text-white font-heading font-semibold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition shadow-neon">
+              Explorar Portafolio
+            </a>
+            <a href="#contacto" class="border border-white/25 hover:border-kamila-blush text-white hover:text-kamila-blush font-heading font-semibold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition">
+              Hablemos de tu proyecto
+            </a>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center gap-6 font-heading text-xs uppercase tracking-[0.18em] text-white/75 font-semibold">
+            <span class="flex items-center gap-2"><span class="text-kamila-blush">✦</span> Fotografía de Producto</span>
+            <span class="flex items-center gap-2"><span class="text-kamila-blush">✦</span> Contenido Digital</span>
+            <span class="flex items-center gap-2"><span class="text-kamila-blush">✦</span> Dirección de Arte</span>
+          </div>
+        </div>
+
+        <!-- Foto Principal Natural en Marco Editorial 3:4 -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-sm">
+            <div class="rounded-3xl overflow-hidden bg-kamila-dark border border-white/15 shadow-2xl aspect-[3/4]">
+              <img
+                src="image_8d177e.jpg"
+                alt="Laura Camila García Ramírez — Kamila Creación Digital"
+                class="w-full h-full object-cover object-center"
+                onerror="this.src='WhatsApp Image 2026-11-24 at 9.56.21 AM.jpeg'"
+              />
+            </div>
+            <div class="mt-3.5 flex items-center justify-between px-2 font-heading text-xs text-white/75">
+              <span class="font-semibold tracking-wider uppercase text-kamila-blush">Kamila Creación Digital</span>
+              <span>Colombia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. CINTA EDITORIAL CONTINUA DE MARCA
+    ========================================================== -->
+    <div class="bg-kamila-blush text-kamila-dark border-y border-kamila-dark/20 py-3 overflow-hidden select-none">
+      <div class="marquee-track font-heading text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
+        <span class="mx-6">CREACIÓN DE CONTENIDO</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">FOTOGRAFÍA PUBLICITARIA</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">IDENTIDAD VISUAL</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">DIRECCIÓN DE ARTE</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">ESTRATEGIAS DE COMUNICACIÓN</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">CREACIÓN DE CONTENIDO</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">FOTOGRAFÍA PUBLICITARIA</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">IDENTIDAD VISUAL</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">DIRECCIÓN DE ARTE</span><span class="text-kamila-primary">✦</span>
+        <span class="mx-6">ESTRATEGIAS DE COMUNICACIÓN</span><span class="text-kamila-primary">✦</span>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         4. SECCIÓN SOBRE MÍ (WHO IS LAU — COMPACTA Y EQUILIBRADA)
+    ========================================================== -->
+    <section id="sobre-mi" class="py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+          <p class="font-heading text-xs font-bold tracking-[0.22em] uppercase text-kamila-blush mb-2">Who is Lau</p>
+          <h2 class="font-heading text-3xl sm:text-4xl font-extrabold uppercase tracking-tight">Sobre Mí</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <!-- Columna Izquierda: Retrato y Concepto de Marca -->
+          <div class="lg:col-span-4 space-y-5">
+            <div class="relative rounded-3xl overflow-hidden bg-black border border-white/15 shadow-xl aspect-[3/4]">
+              <img
+                src="WhatsApp Image 2026-11-24 at 9.56.21 AM.jpeg"
+                alt="Retrato de Laura Camila García Ramírez"
+                class="w-full h-full object-cover object-top"
+              />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-5 flex items-end justify-between">
+                <div>
+                  <h3 class="font-heading text-lg font-bold text-white leading-snug">Laura Camila García Ramírez</h3>
+                  <p class="text-xs text-kamila-blush font-medium">Publicista en formación · 5° Semestre UDI</p>
+                </div>
+                <span class="w-8 h-8 rounded-full bg-kamila-primary flex items-center justify-center text-white text-sm shrink-0">✦</span>
+              </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5">
+              <div class="flex items-center gap-2 font-heading text-xs font-bold tracking-[0.18em] uppercase text-kamila-blush mb-2">
+                <span>✦</span> Concepto de Marca
+              </div>
+              <p class="text-sm text-white/85 leading-relaxed">
+                <strong class="text-white">Kamila Creación Digital</strong> nace de la pasión por la fotografía, el diseño y la creatividad. La estrella simboliza la inspiración y las ideas que transforman conceptos en experiencias visuales coherentes y memorables.
+              </p>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Biografía UDI + 4 Tarjetas Ordenadas -->
+          <div class="lg:col-span-8 space-y-6">
+            <div class="glass-card rounded-2xl p-6 sm:p-7">
+              <p class="text-base text-white/90 leading-relaxed">
+                Hola, soy <strong class="text-white">Lau</strong>. Curso 5° semestre de <strong class="text-white">Publicidad y Marketing Digital</strong> en la Universidad de Investigación y Desarrollo (<strong class="text-white">UDI</strong>). Me caracterizo por ser una persona creativa y organizada, enfocada en creación de contenido, fotografía y estrategias de comunicación para marcas y redes sociales, transformando ideas en piezas que captan la atención.
+              </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <!-- Valores -->
+              <div class="glass-card rounded-2xl p-6">
+                <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-kamila-blush">♡</span> Valores
+                </h3>
+                <div class="flex flex-wrap gap-2.5">
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-dark/90 border border-white/10 font-heading text-xs font-semibold text-white">Responsable</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-dark/90 border border-white/10 font-heading text-xs font-semibold text-white">Organizada</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-dark/90 border border-white/10 font-heading text-xs font-semibold text-white">Atenta</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-dark/90 border border-white/10 font-heading text-xs font-semibold text-white">Creativa</span>
+                </div>
+              </div>
+
+              <!-- Habilidades -->
+              <div class="glass-card rounded-2xl p-6">
+                <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-kamila-blush">✦</span> Habilidades
+                </h3>
+                <div class="flex flex-wrap gap-2.5">
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-primary/30 border border-kamila-primary/50 font-heading text-xs font-semibold text-white">Publicidad</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-primary/30 border border-kamila-primary/50 font-heading text-xs font-semibold text-white">Fotografía</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-primary/30 border border-kamila-primary/50 font-heading text-xs font-semibold text-white">Contenido Digital</span>
+                  <span class="px-3.5 py-1.5 rounded-xl bg-kamila-primary/30 border border-kamila-primary/50 font-heading text-xs font-semibold text-white">Dirección de Arte</span>
+                </div>
+              </div>
+
+              <!-- Idiomas -->
+              <div class="glass-card rounded-2xl p-6">
+                <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-kamila-blush">文/A</span> Idiomas
+                </h3>
+                <ul class="space-y-3 text-sm">
+                  <li class="flex items-center justify-between">
+                    <span class="text-white/90">Español</span>
+                    <span class="px-3 py-0.5 rounded-full bg-kamila-primary text-white font-heading text-xs font-semibold">Nativo</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span class="text-white/90">Inglés</span>
+                    <span class="px-3 py-0.5 rounded-full bg-white/10 text-white/90 font-heading text-xs font-semibold">En proceso</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span class="text-white/90">Portugués</span>
+                    <span class="px-3 py-0.5 rounded-full bg-white/10 text-white/90 font-heading text-xs font-semibold">En proceso</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Softwares -->
+              <div class="glass-card rounded-2xl p-6">
+                <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-kamila-blush">❖</span> Softwares
+                </h3>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="flex items-center gap-3 p-3 rounded-xl bg-kamila-dark/80 border border-amber-400/30">
+                    <span class="w-9 h-9 rounded-lg bg-[#330000] text-[#FF9A00] font-heading font-extrabold text-sm flex items-center justify-center shrink-0">Ai</span>
+                    <div>
+                      <p class="font-heading text-xs font-bold text-white">Adobe</p>
+                      <p class="text-[11px] text-white/70">Illustrator</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 rounded-xl bg-kamila-dark/80 border border-sky-400/30">
+                    <span class="w-9 h-9 rounded-lg bg-[#001E36] text-[#31A8FF] font-heading font-extrabold text-sm flex items-center justify-center shrink-0">Ps</span>
+                    <div>
+                      <p class="font-heading text-xs font-bold text-white">Adobe</p>
+                      <p class="text-[11px] text-white/70">Photoshop</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. SECCIÓN PORTAFOLIO
+    ========================================================== -->
+    <section id="portafolio" class="py-20 lg:py-24 bg-kamila-dark/45 border-y border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Encabezado Editorial con Retrato y Cámara -->
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-kamila-dark via-[#630533] to-kamila-base border border-white/15 px-6 py-10 sm:px-12 mb-12">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-6 space-y-3">
+              <span class="inline-block font-heading text-xs font-bold tracking-[0.22em] uppercase text-kamila-blush">Selección de Trabajos</span>
+              <h2 class="font-heading text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">Portafolio</h2>
+              <p class="text-sm sm:text-base text-white/80 max-w-xl">
+                Una selección de proyectos donde las ideas se convierten en experiencias visuales y resultados reales para marcas.
+              </p>
+            </div>
+            <div class="md:col-span-6 flex justify-center md:justify-end">
+              <img
+                src="Retrato con cámara y garabatos rosas.png"
+                alt="Lau sosteniendo cámara fotográfica"
+                class="w-72 sm:w-80 md:w-96 lg:w-[26rem] h-auto object-contain drop-shadow-2xl"
+                onerror="this.src='WhatsApp Image 2026-10-11 at 11.07.26 PM.jpeg'"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Filtros de Categoría -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-10" id="filter-buttons">
+          <button type="button" data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full font-heading text-xs font-bold uppercase tracking-wider border border-white/15 transition">
+            Todos (<span id="count-all">12</span>)
+          </button>
+          <button type="button" data-filter="producto" class="filter-btn px-5 py-2.5 rounded-full font-heading text-xs font-bold uppercase tracking-wider bg-kamila-base/85 hover:bg-kamila-primary/70 text-white/85 border border-white/15 transition">
+            Fotografía de Producto
+          </button>
+          <button type="button" data-filter="retratos" class="filter-btn px-5 py-2.5 rounded-full font-heading text-xs font-bold uppercase tracking-wider bg-kamila-base/85 hover:bg-kamila-primary/70 text-white/85 border border-white/15 transition">
+            Retratos &amp; Editorial
+          </button>
+          <button type="button" data-filter="afiches" class="filter-btn px-5 py-2.5 rounded-full font-heading text-xs font-bold uppercase tracking-wider bg-kamila-base/85 hover:bg-kamila-primary/70 text-white/85 border border-white/15 transition">
+            Diseño &amp; Afiche
+          </button>
+        </div>
+
+        <!-- Cuadrícula de Proyectos -->
+        <div id="portfolio-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. SECCIÓN SERVICIOS
+    ========================================================== -->
+    <section id="servicios" class="py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-12">
+          <p class="font-heading text-xs font-bold tracking-[0.22em] uppercase text-kamila-blush mb-2">Soluciones Creativas</p>
+          <h2 class="font-heading text-3xl sm:text-4xl font-extrabold uppercase tracking-tight">Servicios</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7">
+          <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-kamila-primary/30 border border-kamila-primary/50 flex items-center justify-center text-kamila-blush text-xl mb-5">✦</div>
+              <h3 class="font-heading text-xl font-bold text-white mb-3">Fotografía Publicitaria y de Producto</h3>
+              <p class="text-sm text-white/80 leading-relaxed">
+                Captura y edición fotográfica profesional enfocada en resaltar la esencia, texturas e identidad visual de tus productos o marca personal.
+              </p>
+            </div>
+            <a href="#contacto" data-service="Fotografía Publicitaria y de Producto" class="service-cta mt-7 inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-wider text-kamila-blush hover:text-white transition">
+              Cotizar servicio →
+            </a>
+          </div>
+
+          <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-kamila-primary/30 border border-kamila-primary/50 flex items-center justify-center text-kamila-blush text-xl mb-5">✦</div>
+              <h3 class="font-heading text-xl font-bold text-white mb-3">Estrategia y Creación de Contenido Digital</h3>
+              <p class="text-sm text-white/80 leading-relaxed">
+                Definición de conceptos visuales, estética e identidad de marca para asegurar una comunicación coherente y atractiva en todos tus canales.
+              </p>
+            </div>
+            <a href="#contacto" data-service="Estrategia y Creación de Contenido Digital" class="service-cta mt-7 inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-wider text-kamila-blush hover:text-white transition">
+              Cotizar servicio →
+            </a>
+          </div>
+
+          <div class="glass-card rounded-3xl p-7 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-kamila-primary/30 border border-kamila-primary/50 flex items-center justify-center text-kamila-blush text-xl mb-5">✦</div>
+              <h3 class="font-heading text-xl font-bold text-white mb-3">Dirección de Arte y Gestión de Marca</h3>
+              <p class="text-sm text-white/80 leading-relaxed">
+                Planificación, guionización y producción de piezas audiovisuales y gráficas adaptadas a la identidad de tu marca para aumentar visibilidad y conexión.
+              </p>
+            </div>
+            <a href="#contacto" data-service="Dirección de Arte y Gestión de Marca" class="service-cta mt-7 inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-wider text-kamila-blush hover:text-white transition">
+              Cotizar servicio →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. SECCIÓN CONTACTO
+    ========================================================== -->
+    <section id="contacto" class="py-20 lg:py-24 bg-kamila-dark/50 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5 space-y-6">
+          <p class="font-heading text-xs font-bold tracking-[0.22em] uppercase text-kamila-blush">Hablemos</p>
+          <h2 class="font-heading text-3xl sm:text-4xl font-extrabold uppercase tracking-tight">¿Creamos algo juntos?</h2>
+          <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+            Hablemos de ideas, creatividad y nuevas posibilidades. Me encanta transformar ideas en propuestas visuales que comunican, conectan e inspiran.
+          </p>
+
+          <div class="space-y-3 pt-2">
+            <a
+              href="https://wa.me/573188671297"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between p-4 rounded-2xl glass-card hover:border-kamila-blush transition"
+            >
+              <div>
+                <p class="font-heading text-xs uppercase tracking-wider text-kamila-blush font-semibold">WhatsApp Directo</p>
+                <p class="font-heading text-sm font-bold text-white">+57 318 867 1297</p>
+              </div>
+              <span class="text-kamila-blush">↗</span>
+            </a>
+
+            <a
+              href="https://www.instagram.com/__laug03?utm_source=qr&bqrl=MXgwanFtMjNpMHYzdA=="
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between p-4 rounded-2xl glass-card hover:border-kamila-blush transition"
+            >
+              <div>
+                <p class="font-heading text-xs uppercase tracking-wider text-kamila-blush font-semibold">Instagram</p>
+                <p class="font-heading text-sm font-bold text-white">@__laug03</p>
+              </div>
+              <span class="text-kamila-blush">↗</span>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/laura-camila-garcia-ramirez-1b869a42b/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between p-4 rounded-2xl glass-card hover:border-kamila-blush transition"
+            >
+              <div>
+                <p class="font-heading text-xs uppercase tracking-wider text-kamila-blush font-semibold">LinkedIn</p>
+                <p class="font-heading text-sm font-bold text-white">Laura Camila García Ramírez</p>
+              </div>
+              <span class="text-kamila-blush">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <form id="contact-form" class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-5">
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block font-heading text-xs font-bold uppercase tracking-wider text-white/85 mb-2">Tu Nombre</label>
+              <input id="name" type="text" required placeholder="Ej. Valentina Gómez" class="w-full px-4 py-3 rounded-xl bg-kamila-base/80 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-kamila-blush text-sm" />
+            </div>
+            <div>
+              <label for="brand" class="block font-heading text-xs font-bold uppercase tracking-wider text-white/85 mb-2">Marca o Proyecto</label>
+              <input id="brand" type="text" placeholder="Nombre de tu marca" class="w-full px-4 py-3 rounded-xl bg-kamila-base/80 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-kamila-blush text-sm" />
+            </div>
+          </div>
+
+          <div>
+            <label for="service" class="block font-heading text-xs font-bold uppercase tracking-wider text-white/85 mb-2">Servicio de Interés</label>
+            <select id="service" class="w-full px-4 py-3 rounded-xl bg-kamila-base/95 border border-white/15 text-white focus:outline-none focus:border-kamila-blush text-sm">
+              <option value="Fotografía Publicitaria y de Producto">Fotografía Publicitaria y de Producto</option>
+              <option value="Estrategia y Creación de Contenido Digital">Estrategia y Creación de Contenido Digital</option>
+              <option value="Dirección de Arte y Gestión de Marca">Dirección de Arte y Gestión de Marca</option>
+              <option value="Otro proyecto creativo">Otro proyecto creativo</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block font-heading text-xs font-bold uppercase tracking-wider text-white/85 mb-2">Cuéntame sobre tu idea</label>
+            <textarea id="message" rows="4" required placeholder="Escribe los detalles de lo que necesitas..." class="w-full px-4 py-3 rounded-xl bg-kamila-base/80 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-kamila-blush text-sm"></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-kamila-primary hover:bg-pink-700 text-white font-heading font-bold text-sm uppercase tracking-wider py-3.5 rounded-xl transition shadow-neon cursor-pointer">
+            Enviar Mensaje por WhatsApp
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       8. FOOTER
+  ========================================================== -->
+  <footer class="relative z-10 bg-black/75 border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
+      <div class="flex items-center gap-3">
+        <a href="#inicio" class="inline-flex items-center gap-2.5 group">
+          <img
+            src="Kamila.png"
+            alt="Kamila Creación Digital"
+            class="h-8 w-auto object-contain logo-transparent-white"
+            onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');"
+          />
+          <span class="hidden font-amarego text-xl font-black text-white tracking-tight">Kamila</span>
+        </a>
+        <span>© <span id="year"></span> Kamila Creación Digital · Laura Camila García Ramírez</span>
+      </div>
+      <div class="flex items-center gap-5 font-heading uppercase tracking-wider text-[11px]">
+        <a href="https://www.instagram.com/__laug03?utm_source=qr&bqrl=MXgwanFtMjNpMHYzdA==" target="_blank" rel="noopener noreferrer" class="hover:text-kamila-blush transition">Instagram</a>
+        <a href="https://www.linkedin.com/in/laura-camila-garcia-ramirez-1b869a42b/" target="_blank" rel="noopener noreferrer" class="hover:text-kamila-blush transition">LinkedIn</a>
+        <a href="https://wa.me/573188671297" target="_blank" rel="noopener noreferrer" class="hover:text-kamila-blush transition">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       9. MODAL LIGHTBOX AMPLIADO
+  ========================================================== -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+    <div class="relative max-w-5xl w-full bg-kamila-base border border-white/15 rounded-3xl overflow-hidden shadow-2xl grid md:grid-cols-12">
+      <button id="close-lightbox" type="button" aria-label="Cerrar vista ampliada" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/75 hover:bg-kamila-primary text-white flex items-center justify-center transition cursor-pointer">
+        ✕
+      </button>
+      <div class="md:col-span-7 bg-black flex items-center justify-center p-5 min-h-[420px] sm:min-h-[540px] max-h-[86vh]">
+        <img id="lightbox-img" src="" alt="" class="max-h-[78vh] w-auto max-w-full object-contain rounded-xl transition-transform duration-300" />
+      </div>
+      <div class="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div class="space-y-3">
+          <span id="lightbox-category" class="inline-block px-3 py-1 rounded-full bg-kamila-primary/35 text-kamila-blush font-heading text-[11px] font-bold uppercase tracking-wider"></span>
+          <h3 id="lightbox-title" class="font-heading text-2xl font-extrabold text-white"></h3>
+          <p id="lightbox-desc" class="text-sm text-white/80 leading-relaxed"></p>
+        </div>
+        <a id="lightbox-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-kamila-primary hover:bg-pink-700 text-white font-heading font-bold text-xs uppercase tracking-wider py-3.5 rounded-xl transition">
+          Consultar un proyecto similar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT: Galería, Rotación -90° en Canvas, Filtros,
+       Lightbox, Menú Móvil y Contacto WhatsApp
+  ========================================================== -->
+  <script>
+    const PROJECTS = [
+      // Fotografía de Producto - Miel artesanal
+      {
+        id: 'miel-1',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Miel Artesanal & Desayuno Editorial',
+        desc: 'Fotografía gastronómica y de producto con iluminación cálida, texturas naturales y composición cuidada sobre madera.',
+        src: '6 (1).jpg',
+        rotateDeg: 0
+      },
+      {
+        id: 'miel-2',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Frasco de Miel con Panal — Fondo Naranja',
+        desc: 'Dirección de arte y fotografía de producto enfocada en contraste cromático y detalle de textura en la miel.',
+        src: '4 (1).jpg',
+        rotateDeg: 0
+      },
+      {
+        id: 'miel-3',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Miel Artesanal — Composición con Cuchara',
+        desc: 'Pieza visual limpia para redes sociales y catálogos digitales resaltando la presentación del envase.',
+        src: '3 (1).jpg',
+        rotateDeg: 0
+      },
+      // Fotografía de Producto - Jabones artesanales
+      {
+        id: 'jabon-1',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Jabones Artesanales de Carbón Activado',
+        desc: 'Fotografía de producto con estética orgánica, contraste monocromático y detalles de textura natural.',
+        src: 'IMG_0959 (2).jpg',
+        rotateDeg: 0
+      },
+      {
+        id: 'jabon-2',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Jabón Natural con Piedras y Espigas',
+        desc: 'Composición cenital de bienestar y cuidado personal con elementos naturales y luz suave.',
+        src: 'IMG_0977 (2).jpg',
+        rotateDeg: 0
+      },
+      {
+        id: 'jabon-3',
+        category: 'producto',
+        categoryLabel: 'Fotografía de Producto',
+        title: 'Jabones Exfoliantes con Aloe y Romero',
+        desc: 'Producción fotográfica de cosmética artesanal resaltando ingredientes botánicos y presentación.',
+        src: 'IMG_0999 (2).jpg',
+        rotateDeg: 0
+      },
+      // Retratos & Editorial (rotados -90° vía canvas para quedar completamente de pie)
+      {
+        id: 'retrato-1',
+        category: 'retratos',
+        categoryLabel: 'Retratos & Editorial',
+        title: 'Sesión Editorial Monocromo — Pose Urbana',
+        desc: 'Retrato en blanco y negro realizado por Laura Camila García Ramírez con contraste dramático y encuadre vertical.',
+        src: 'Canva - download (1).jpg',
+        rotateDeg: -90
+      },
+      {
+        id: 'retrato-2',
+        category: 'retratos',
+        categoryLabel: 'Retratos & Editorial',
+        title: 'Sesión Editorial Monocromo — Sonrisa Natural',
+        desc: 'Primer plano expresivo en escala de grises capturando espontaneidad y luz natural.',
+        src: 'Canva - download (2).jpg',
+        rotateDeg: -90
+      },
+      {
+        id: 'retrato-3',
+        category: 'retratos',
+        categoryLabel: 'Retratos & Editorial',
+        title: 'Sesión Editorial Monocromo — Mirada Editorial',
+        desc: 'Composición en blanco y negro con profundidad y estética editorial contemporánea.',
+        src: 'Canva - download.jpg',
+        rotateDeg: -90
+      },
+      // Diseño & Afiche
+      {
+        id: 'afiche-1',
+        category: 'afiches',
+        categoryLabel: 'Diseño & Afiche',
+        title: 'Póster Cinematográfico — Resident Evil',
+        desc: 'Fotomontaje y composición gráfica de alto impacto desarrollada en Adobe Photoshop.',
+        src: 'Póster apocalíptico de Resident Evil.png',
+        rotateDeg: 0
+      },
+      {
+        id: 'afiche-2',
+        category: 'afiches',
+        categoryLabel: 'Diseño & Afiche',
+        title: 'Afiche Editorial — Bridgerton (Lady Whistledown)',
+        desc: 'Pieza gráfica inspirada en estética de época, combinando composición tipográfica, espejo y detalles ornamentales.',
+        src: 'Lady Whistledown_ Secretos en el Espejo.png',
+        rotateDeg: 0
+      },
+      {
+        id: 'afiche-3',
+        category: 'afiches',
+        categoryLabel: 'Diseño & Afiche',
+        title: 'Afiche Promocional — Happy Halloween',
+        desc: 'Diseño gráfico de campaña temática con atmósfera oscura, iluminación dramática y tipografía de impacto.',
+        src: 'Halloween espectral bajo la luna.png',
+        rotateDeg: 0
+      }
+    ];
+
+    const rotatedCache = new Map();
+
+    function getOrientedSrc(src, rotateDeg) {
+      if (!rotateDeg) return Promise.resolve(src);
+      const key = `${src}__${rotateDeg}`;
+      if (rotatedCache.has(key)) return Promise.resolve(rotatedCache.get(key));
+
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const rad = (rotateDeg * Math.PI) / 180;
+          const sin = Math.abs(Math.sin(rad));
+          const cos = Math.abs(Math.cos(rad));
+          canvas.width = Math.round(img.naturalWidth * cos + img.naturalHeight * sin);
+          canvas.height = Math.round(img.naturalWidth * sin + img.naturalHeight * cos);
+
+          const ctx = canvas.getContext('2d');
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.rotate(rad);
+          ctx.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
+
+          try {
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.94);
+            rotatedCache.set(key, dataUrl);
+            resolve(dataUrl);
+          } catch (e) {
+            resolve(src);
+          }
+        };
+        img.onerror = () => resolve(src);
+        img.src = src;
+      });
+    }
+
+    const gridEl = document.getElementById('portfolio-grid');
+    const countAllEl = document.getElementById('count-all');
+    countAllEl.textContent = PROJECTS.length;
+
+    function renderProjects(filter = 'all') {
+      const filtered = filter === 'all'
+        ? PROJECTS
+        : PROJECTS.filter((p) => p.category === filter);
+
+      gridEl.innerHTML = '';
+
+      filtered.forEach((project) => {
+        const card = document.createElement('article');
+        card.className = 'group glass-card rounded-3xl overflow-hidden flex flex-col cursor-pointer';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Ver proyecto: ${project.title}`);
+
+        card.innerHTML = `
+          <div class="relative aspect-[3/4] bg-black/50 overflow-hidden">
+            <img
+              data-id="${project.id}"
+              src="${project.src}"
+              alt="${project.title}"
+              class="portfolio-img"
+            />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-kamila-base/85 backdrop-blur-sm border border-white/15 font-heading text-[10px] font-bold uppercase tracking-wider text-kamila-blush">
+              ${project.categoryLabel}
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-2">
+            <h3 class="font-heading text-base font-bold text-white group-hover:text-kamila-blush transition">${project.title}</h3>
+            <p class="text-xs text-white/75 leading-relaxed">${project.desc}</p>
+          </div>
+        `;
+
+        const imgEl = card.querySelector('img');
+        if (project.rotateDeg) {
+          getOrientedSrc(project.src, project.rotateDeg).then((orientedUrl) => {
+            imgEl.src = orientedUrl;
+          });
+        }
+
+        card.addEventListener('click', () => openLightbox(project, imgEl.src));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(project, imgEl.src);
+          }
+        });
+        gridEl.appendChild(card);
+      });
+    }
+
+    // Filtros
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach((b) => {
+          b.classList.remove('active');
+          b.classList.add('bg-kamila-base/85', 'text-white/85');
+        });
+        btn.classList.remove('bg-kamila-base/85', 'text-white/85');
+        btn.classList.add('active');
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCat = document.getElementById('lightbox-category');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDesc = document.getElementById('lightbox-desc');
+    const lightboxWa = document.getElementById('lightbox-whatsapp');
+    const closeLightboxBtn = document.getElementById('close-lightbox');
+
+    function openLightbox(project, currentSrc) {
+      lightboxImg.style.transform = '';
+      lightboxImg.src = currentSrc || project.src;
+      lightboxImg.alt = project.title;
+      lightboxCat.textContent = project.categoryLabel;
+      lightboxTitle.textContent = project.title;
+      lightboxDesc.textContent = project.desc;
+
+      if (project.rotateDeg) {
+        getOrientedSrc(project.src, project.rotateDeg).then((orientedUrl) => {
+          lightboxImg.src = orientedUrl;
+          // Respaldo visual vertical si el canvas no pudo rotar por restricción del navegador
+          if (orientedUrl === project.src) {
+            lightboxImg.style.transform = `rotate(${project.rotateDeg}deg)`;
+          }
+        });
+      }
+
+      const text = encodeURIComponent(`Hola Lau, me gustó el proyecto "${project.title}" de tu portafolio y quisiera información.`);
+      lightboxWa.href = `https://wa.me/573188671297?text=${text}`;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Menú móvil
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+
+    function toggleMobileMenu() {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuIconOpen.classList.toggle('hidden', isHidden);
+      menuIconClose.classList.toggle('hidden', !isHidden);
+      mobileMenuBtn.setAttribute('aria-expanded', String(isHidden));
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (!mobileMenu.classList.contains('hidden')) toggleMobileMenu();
+      });
+    });
+
+    // Seleccionar servicio desde tarjetas
+    document.querySelectorAll('.service-cta').forEach((link) => {
+      link.addEventListener('click', () => {
+        const select = document.getElementById('service');
+        if (select && link.dataset.service) {
+          select.value = link.dataset.service;
+        }
+      });
+    });
+
+    // Envío del formulario hacia WhatsApp
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const brand = document.getElementById('brand').value.trim();
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
+
+      const text = [
+        `Hola Lau, soy ${name}.`,
+        brand ? `Marca/Proyecto: ${brand}.` : '',
+        `Servicio de interés: ${service}.`,
+        `Mensaje: ${message}`
+      ].filter(Boolean).join('\n');
+
+      window.open(`https://wa.me/573188671297?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderProjects('all');
+  </script>
+</body>
+</html>
